@@ -1,0 +1,271 @@
+\documentclass[12pt,a4paper]{article}
+
+
+\usepackage{amsmath}
+
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+
+\usepackage{xcolor}
+
+\usepackage{braket}
+
+\setlength\parindent{0pt}
+
+
+\usepackage[printwatermark]{xwatermark}
+\newwatermark[allpages,color=gray!50,angle=45,scale=3,xpos=0,ypos=0]{DRAFT}
+
+
+
+
+
+\begin{document}
+
+\title{ \vspace{-2cm} 1D Particle in a Box}
+\date{}
+\maketitle
+
+\section{Introduction}
+
+Every physics undergrad should know how to solve particle in a box, right? But do you understand all the physics (or perhaps math) behind this simple system? Let me first give a brief review on this topic.\\
+
+\textbf{Prerequisite:} (1) Know how to solve Schr\"{o}dinger equation (2) Understand eigenvectors and eigenvalues; (3) Momentum space wavefunction (basic Fourier transform); (4) Basic operator
+
+\section{Review}
+Consider 1D particle in a box governed by this Schr\"{o}dinger equation.
+\begin{align}
+	\Bigg[ -\frac{\hbar^{2}}{2m} \frac{\partial^{2}}{\partial x^{2}} \; + \; V(x) \Bigg] \Psi(x, t)
+	\; = \;
+	i \hbar \frac{\partial \Psi}{\partial t}
+\end{align}
+with potential $V(x)$ given by
+\begin{align}
+	V(x) \; = \; 
+	\begin{cases}
+	0  & \qquad 0 < x < L \\
+	\infty & \qquad \mathrm{Otherwise}
+	\end{cases}
+\end{align}
+
+To solve the general wave function $\Psi(x, t)$, we first need to find the energy eigen-states, and then form a linear combination of those states. So, what we do is simply let $\Psi(x, t) = \psi(x) e^{-i E t / \hbar }$ and obtain the so called Time Independent Schr\"{o}dinger Equation (TISE).
+
+\begin{align}
+	\Bigg[ -\frac{\hbar^{2}}{2m} \frac{d^{2}}{d x^{2}} \; + \; V(x) \Bigg] \psi(x)
+	\; = \;
+	E \psi(x)
+\end{align}
+
+So basically, we need to solve the energy eigen-states $\psi(x)$ and eigen-energy $E$. For this particular system, everyone with physics undergrad should agree the following.
+
+\begin{align}
+	 -\frac{\hbar^{2}}{2m} \frac{d^{2} \psi}{d x^{2}} \; &= \; E \psi \qquad 0 < x < L \label{eqn:PDE} \\
+	 \mathrm{B.C.s} \; \; \psi(0) &= \psi(L) = 0 \label{eqn:BCs}
+\end{align}
+
+Now the solution to Eq. (\ref{eqn:PDE}) subjecting to the boundary conditions (\ref{eqn:BCs}) is just
+\begin{align}
+	\psi_{n}(x) \; &= \; 
+	\begin{cases}
+	\sqrt{2/L} \; \sin (k_{n} x) \qquad & 0 < x < L \\
+	0 \qquad & \mathrm{Otherwise}
+	\end{cases}
+	 \label{eqn:eigenstate}\\
+	E_{n} \; &= \;  (\hbar k_{n})^{2} / 2m \label{eqn:eigenenergy}
+\end{align}
+where $k_{n} = n \pi / L$, $\; n = 1, 2, 3, \dots$  Depending on the initial conditions (not given here), we can further obtain $\Psi(x, t)$. But our focus is not here.
+
+
+
+\clearpage
+
+
+
+\section{The Disaster} \label{sec:wrong_deduction}
+\textbf{Question:} Find the momentum space representation of the eigen-states for the particle in a box (1D).\\
+
+I asked this question myself when I was an M. Phil. student and preparing an exercise class for my undergrad student. I thought that it is simple and I decompose $\psi_{n}$ as follow
+\begin{align}
+	\psi_{n}(x) \; &= \;  \sqrt{\frac{2}{L}} \; \sin (k_{n} x) \label{eqn:wrong_eigenstate} \\
+	\; &= \;   \frac{1}{2i} \sqrt{\frac{2}{L}} \; \Big[ e^{ik_{n}x} - e^{-ik_{n}x} \Big] \label{eqn:wrong_decompose}
+\end{align}
+So, it is very simple. Why? Because $e^{ikx}$ is an eigen-state of momentum operator $\hat{p}$. By observing Eq. (\ref{eqn:wrong_decompose}), I thought that $\psi_{n}(x)$ consists of two plane waves travelling in opposite direction. So, the momentum space representation is
+\begin{align}
+	\phi_{n}(k) \; \sim \;   \delta(k - k_{n}) + \delta(k + k_{n})
+\end{align}
+\textbf{And this is WRONG!!!!}
+
+
+\section{Inconsistency}
+The TISE is given by
+\begin{align}
+	-\frac{\hbar^{2}}{2m} \frac{d^{2} \psi}{dx^{2}} \; = \; E \psi
+\end{align}
+So the Hamiltonian operator is $\hat{H} = \hat{p}^{2}/2m$.\\
+
+This is just the free particle Hamiltonian. One would expect that the energy eigenstate is $e^{ikx}$ (not normalizable) which \textbf{contradicts} to Eq. (\ref{eqn:eigenstate}) (normalizable). Also, the plane wave eigen-energy can take any value (i.e. continuous), which also \textbf{contradicts} to Eq. (\ref{eqn:eigenenergy}) (discrete).\\
+
+\color{red} Now, can you spot out what's wrong in the deduction? \color{black}
+
+
+
+\section{Solution}
+The deduction in Sec. \ref{sec:wrong_deduction}, is all wrong. In fact, the eigen-state, Eq. (\ref{eqn:wrong_eigenstate}) is not correct. To be more precise, Eq. (\ref{eqn:wrong_eigenstate}) is misleading.\\
+
+The reason is that Eq. (\ref{eqn:wrong_eigenstate}) only holds on $0 < x < L$. But to consider the actual wave function, we have to specify all the values in the real space (i.e. $-\infty < x < \infty$). Allow me to emphasise once again, the eigen-state of the particle in a box (1D) is given by Eq. (\ref{eqn:eigenstate})
+\begin{align}
+	\psi_{n}(x) \; &= \; 
+	\begin{cases}
+		\sqrt{2/L} \; \sin (k_{n} x) \qquad & 0 < x < L \\
+		\color{red} 0 \qquad & \color{red} \mathrm{Otherwise}
+	\end{cases}
+\end{align}
+
+Similarly, the Hamiltonian $\hat{H}$ is \textbf{NOT} $\hat{p}^{2}/2m$ since the potential $V(x)$ is \textbf{NOT} identically equal to zero. Having the concept clear, let's find out the momentum representation of $\psi_{n}(x)$ using Fourier transform.
+
+\clearpage
+
+\section{Momentum Space Revisit}
+
+The momentum representation of eigen-state $\phi_{n}(k)$ is 
+\begin{align}
+	\phi_{n}(k) \; = \; \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{+\infty} \psi_{n}(x) e^{-ikx} \; dx
+\end{align}
+Note that the integration domain is $-\infty < x < \infty$. Thus, we have to specify \textbf{ALL} the values of $\psi(x)$ in real-space, not just the non-zero region!\\
+
+Now, since $\psi_{n}(x) = 0$ for $-\infty < x < 0$ or $L < x < \infty$. Therefore, we only need to integrate from $x=0$ to $x=L$.
+\begin{align}
+	\phi_{n}(k) \; &= \; 
+	\frac{1}{\sqrt{2 \pi}} \int_{0}^{L} \color{red} \sqrt{\frac{2}{L}} \sin (k_{n} x) \; \color{black}  e^{-ikx} \; dx \\
+	\; &= \; 
+	\frac{1}{2i \sqrt{L \pi}} \int_{0}^{L} \Big( e^{i (k_{n}-k)x} - e^{-i(k_{n}+k)x} \Big)\; dx \\
+	\; &= \;
+	\frac{1}{2i \sqrt{L \pi}} \Bigg[
+	\frac{e^{i(k_{n}-k)L}-1}{i(k_{n}-k)}
+	 \; + \;
+	\frac{e^{-i(k_{n}+k)L}-1}{i(k_{n} + k)}
+	\Bigg]
+\end{align}
+Recall that $k_{n} = n \pi / L$ for $n = 1, 2, 3, \dots$. Therefore, $e^{ik_{n}L} = e^{in\pi} = (-1)^{n}$ and we have
+\begin{align}
+	\phi_{n}(k) \; &= \; 
+	\frac{1}{2i \sqrt{L \pi}} \Bigg[
+	\frac{1}{i(k_{n}-k)}
+	\; + \;
+	\frac{1}{i(k_{n} + k)}
+	\Bigg] \; \Bigg[ (-1)^{n} \, e^{-ikL}-1 \Bigg] \\
+	\; &= \;
+	\frac{1}{2\sqrt{L \pi}}
+	\Bigg[ \frac{2k_{n}}{k_{n}^{2} - k^{2}} \Bigg] \Bigg[1 - (-1)^{n} e^{-ikL} \Bigg] \\
+	\; &= \;
+	\frac{n \sqrt{\pi L}}{ (n\pi)^{2} - (kL)^{2}} \; \Bigg[1 - (-1)^{n} e^{-ikL} \Bigg]
+\end{align}
+
+Great! We now explore the probability distribution of finding a particle with momentum $\hbar k$ (i.e. $|\phi_{n}(k)|^{2}$. Remember to take modulues square!) if it is in energy eigenstate.
+\begin{align}
+	|\phi_{n}(k)|^{2} \; &= \; 
+	\Bigg[ \frac{n \sqrt{\pi L}}{ (n\pi)^{2} - (kL)^{2}} \Bigg]^{2} \; 
+	\Bigg[1 - (-1)^{n} e^{-ikL} \Bigg] \Bigg[1 - (-1)^{n} e^{+ikL} \Bigg]\\
+	\; &= \;
+	\frac{2n^{2} \pi L}{ \big[ (n\pi)^{2} - (kL)^{2} \big]^{2}} \;
+	\Big[1 - (-1)^{n} \cos(kL) \Big] \label{eqn:kspace}
+\end{align}
+
+\textbf{Remark}\\
+Unlike the wrong deduction in Sec \ref{sec:wrong_deduction}, Eq. (\ref{eqn:kspace}), shows that all $k$ values are allowed! Please also note that for a given value of $n$, all values of $k$ are allowed even though we have only a single $k_{n}$!\\
+
+Also, $|\phi_{n}(k)|^{2}$ is an even function. The amount of plane wave traveling to the right is same as that to the left. Thus, one can easily conclude that $\Braket{\hat{p}} = 0$ for energy eigen-state. (\color{blue} Try to evaluate yourself the expectation value in real-space and momentum-space!  \color{black})
+
+
+\clearpage
+
+
+\section{Advanced Topic}
+
+If you are familiar with particle in a box, you probably know that $\braket{\hat{x}} = \braket{\hat{p}} = 0$ for energy eigen-states. In fact, we can directly obtain this result without solving the Schr\"{o}dinger equation explictly.\\
+
+Consider a general TISE in 1D
+\begin{align}
+	\hat{H} \psi \; = \;  \Bigg[ -\frac{\hbar^{2}}{2m} \frac{d^{2}}{dx^{2}} + V(x) \Bigg] \psi_{n}(x) \; = \;  E_{n} \psi_{n}(x) \label{eqn:general_tise}
+\end{align}
+\textit{General} in the sense that $V(x)$ is a general function. With a set of appropriate boundary conditions, we can solve for the energy eigen-state $\psi(x)$.\\
+
+Now, we impose a condition on $V(x)$ such that $V(-x) = V(x)$ (i.e. symmetric potential). With the coordinate transformation $x \to -x$ to Eq. (\ref{eqn:general_tise}), we obtain
+\begin{align}
+	\Bigg[ -\frac{\hbar^{2}}{2m} \frac{d^{2}}{dx^{2}} + V(x) \Bigg] \psi_{n}(-x) \; = \;  E_{n} \psi_{n}(-x) \label{eqn:transformed_tise}
+\end{align}
+Note that the PDE, Eq. (\ref{eqn:transformed_tise}), is identical to Eq. (\ref{eqn:general_tise}). Therefore, $\psi_{n}(-x)$ is also an energy eigen-state with the same eigen-energy $E_{n}$ \textbf{if the same boundary conditions are satisfied}.\\
+
+Since 1D quantum system does not have energy degeneracy \textbf{for bound states} (See Appendix \ref{sec:no_degeneracy}), therefore we can conclude that
+\begin{align}
+	\psi_{n}(-x) \; = \; \psi_{n}(x) \label{eqn:even_parity}
+\end{align}
+which is an even function. Therefore, we have $\braket{\psi_{n} | \hat{x} | \psi_{n}} = 0$.\\
+
+As a result, the energy eigen-state in momentum space is
+\begin{align}
+	\phi_{n}(k) \; &= \; \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \psi_{n}(x) e^{-ikx} \, dx \\
+	\; &= \; \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \psi_{n}(-x) e^{+ikx} \, dx \qquad \mathrm{we \; replace \;} x \; \mathrm{by} \; -x \\
+	\; &= \; \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \psi_{n}(x) e^{-i(-k)x} \, dx \qquad \mathrm{since} \; \psi_{n}(-x) = \psi_{n}(x) \\
+	\; &= \;
+	\phi_{n}(-k)
+\end{align}
+which is also an even function. Therefore, $\braket{\phi_{n} | \hat{p} | \phi_{n}} = 0$.\\
+
+\noindent
+\textbf{Remark}
+You may notice that Eq. (\ref{eqn:eigenstate}) is not symmetric. The reason is that we shifted our origin to the left boundary of the box. (Try to shift the origin back to the centre of the box)\\
+
+\textbf{Parity}\\
+For such kind of Hamiltonian (in our case, the potential is symmetric), we say that the Hamiltonian has Parity symmetry or invariant under Parity transformation. Mathematically, we write $[\hat{H}, \mathcal{P}] = 0$, where $\mathcal{P}$ is the parity operator. The fundamental operation of Parity operator is $\mathcal{P} \ket{x} \; = \; \ket{-x}$ (i.e. inversion). For $\mathcal{P} \psi(x) = \pm \psi(x)$. These wavefunctions $\psi(x)$ are said to have definite parity with either even parity (positive) or odd parity (negative).
+
+
+\clearpage
+
+\appendix
+\section{1D No Energy Degeneracy} \label{sec:no_degeneracy}
+
+Energy degeneracy of a quantum system is that more than one energy eigen-states correspond to the same eigen-energy. But for 1D system, there is no energy degeneracy for bound states.\\
+
+\textit{Proof}\\
+Let's write down the 1D TISE and we \textbf{assume} that two distinct energy eigen-states $\psi_{n}$ and $\psi_{m}, \;$ $n \neq m$, have the same eigen-energy $E$. We shall prove it by contradiction.
+
+\begin{align}
+	-\frac{\hbar^{2}}{2m} \frac{d^{2} \psi_{n}}{dx^{2}} + V(x) \psi_{n}(x) \; &= \; E \psi_{n}(x) \label{eqn:psi_n} \\
+	-\frac{\hbar^{2}}{2m} \frac{d^{2} \psi_{m}}{dx^{2}} + V(x) \psi_{m}(x) \; &= \; E \psi_{m}(x) \label{eqn:psi_m}
+\end{align}
+Multiply Eq. (\ref{eqn:psi_n}) by $\psi_{m}(x)$ and Eq. (\ref{eqn:psi_m}) by $\psi_{n}(x)$, we obtain
+\begin{align}
+-\frac{\hbar^{2}}{2m} \psi_{m} \frac{d^{2} \psi_{n}}{dx^{2}} + \psi_{m}(x) V(x)\psi_{n}(x) \; &= \; E \psi_{m}(x) \psi_{n}(x) \label{eqn:psi_nm1} \\
+-\frac{\hbar^{2}}{2m} \psi_{n} \frac{d^{2} \psi_{m}}{dx^{2}} + \psi_{n}(x) V(x) \psi_{m}(x) \; &= \; E \psi_{n}(x) \psi_{m}(x) \label{eqn:psi_nm2}
+\end{align}
+Subtracting Eq. (\ref{eqn:psi_nm1}) by Eq. (\ref{eqn:psi_nm2}), we obtain
+\begin{align}
+	\psi_{n} \frac{d^{2} \psi_{m}}{dx^{2}} \; = \; 
+	\psi_{m} \frac{d^{2} \psi_{n}}{dx^{2}}
+\end{align}
+Integrate both sides w. r. t. $x$ and perform integration by part:
+\begin{align}
+	\psi_{n}(x) \psi_{m}^{\prime}(x) - \int \psi_{n}^{\prime}(x)  \psi_{m}^{\prime}(x) \; dx
+	\; &= \;
+	-\psi_{n}^{\prime}(x) \psi_{m}(x)  + \int \psi_{m}^{\prime}(x)  \psi_{n}^{\prime}(x) \; dx  + \mathrm{constant}\\
+	\psi_{n}(x) \psi_{m}^{\prime}(x)  + \psi_{n}^{\prime}(x) \psi_{m}(x) \; &= \;  \mathrm{constant} \qquad \forall x
+\end{align}
+For bound states (normalizable), we expect that $\psi_{}(x) = 0$ as $x \to \pm \infty$. Therefore, we conclude that the \textit{constant} is zero, and we have
+\begin{align}
+	\psi_{n}(x) \psi_{m}^{\prime}(x)  \; &= \; \psi_{n}^{\prime}(x) \psi_{m}(x) \\
+	\int \frac{d \psi_{m}}{\psi_{m}} \; &= \; \int \frac{d \psi_{n}}{\psi_{n}} \\
+	\psi_{m}(x) \; &= \; A \psi_{n}(x)
+\end{align}
+Since $\psi(x)$ is normalized, we have $A = 1$ and $\psi_{m} = \psi_{n}$, which \textbf{contradicts} to the assumption that $\psi_{m}$ and $\psi_{n}$ are distinct energy eigen-states! Conclusion: No energy degeneracy for 1D bound states.\\
+
+\textbf{Warning}
+If we include \textit{spin} in 1D quantum system, then we can have energy degeneracy!
+
+
+\end{document}

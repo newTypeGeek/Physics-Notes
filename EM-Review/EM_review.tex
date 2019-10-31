@@ -1,0 +1,316 @@
+\documentclass[12pt,a4paper]{article}
+
+
+\usepackage{amsmath}
+
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+
+\usepackage{xcolor}
+
+%\usepackage{braket}
+\usepackage{amssymb}
+
+\setlength\parindent{0pt}
+
+
+
+\usepackage[printwatermark]{xwatermark}
+\newwatermark[allpages,color=gray!50,angle=45,scale=3,xpos=0,ypos=0]{DRAFT}
+
+
+\begin{document}
+
+\title{ \vspace{-3cm} Review of Classical Electromagnetism}
+\date{}
+\maketitle
+
+
+\section{Maxwell's Equations and Lorentz Force Law}
+
+\begin{align}
+&\nabla \cdot \mathbf{E} \; = \; \frac{\rho}{\epsilon} \hspace{4cm} (\mathrm{Gauss's \; Law \; for \; electricity}) \label{eqn:gaus_e}\\
+&\nabla \cdot \mathbf{B} \; = \; 0  \hspace{4.05cm} (\mathrm{Gauss's \; Law \; for \; magnetism}) \label{eqn:gaus_m}\\
+&\nabla \times \mathbf{E} \; = \; -\frac{\partial \mathbf{B}}{\partial t}  \hspace{3.1cm} (\mathrm{Faraday's \; Law}) \label{eqn:faraday}\\
+&\nabla \times \mathbf{B} \; = \; \mu_{0} \mathbf{J} \; + \; \mu_{0} \epsilon_{0} \frac{\partial \mathbf{E}}{\partial t}  \hspace{1.3cm} (\mathrm{Ampere's \; Law \; with \; Maxwell's \; Correction}) \label{eqn:ampere}\\
+&\mathbf{f} \; = \; \rho \mathbf{E} + \mathbf{J} \times \mathbf{B}  \hspace{3cm} (\mathrm{Lorentz \; Force \; Law}) \label{eqn:lorentz}
+\end{align}
+These 4+1 equations are the foundations of \textit{everything} in classical electromagnetism.
+
+
+\section{Light is Electromagnetic Wave}
+Taking \textbf{curl} of Eq. (\ref{eqn:faraday}) and Eq. (\ref{eqn:ampere}).
+\begin{align}
+	\nabla \times \Big( \nabla \times \mathbf{E} \Big)  \; &= \; -\frac{\partial \; ( \mathbf{ \nabla \times B}) }{\partial t} \label{eqn:tmp_1}\\
+	\nabla \times \Big( \nabla \times \mathbf{B} \Big) \; &= \; \mu_{0}  \Big(\nabla \times \mathbf{J}\Big) \; + \; \mu_{0} \epsilon_{0} \frac{\partial \mathbf{( \nabla \times E )}}{\partial t} \label{eqn:tmp_2}
+\end{align}
+By the identity: $\nabla \times (\nabla \times \mathbf{v}) = \nabla (\nabla \cdot \mathbf{v}) - \nabla^{2} \mathbf{v}$, we simplify Eq. (\ref{eqn:tmp_1}) and (\ref{eqn:tmp_2}) as follow.
+\begin{align}
+	 \nabla (\nabla \cdot \mathbf{E}) - \nabla^{2} \mathbf{E} \; &= \; -\frac{\partial \; ( \mathbf{ \nabla \times B}) }{\partial t} \label{eqn:tmp_3} \\
+	  \nabla (\nabla \cdot \mathbf{B}) - \nabla^{2} \mathbf{B} \; &= \; \mu_{0}  \Big(\nabla \times \mathbf{J}\Big) \; + \; \mu_{0} \epsilon_{0} \frac{\partial \mathbf{( \nabla \times E )}}{\partial t} \label{eqn:tmp_4}
+\end{align}
+For Eq. (\ref{eqn:tmp_3}), we simplify it using Maxwell's equation Eq. (\ref{eqn:gaus_e}) and Eq. (\ref{eqn:ampere}).
+For Eq. (\ref{eqn:tmp_4}), we simplify it using Maxwell's equation Eq. (\ref{eqn:gaus_m}) and Eq. (\ref{eqn:faraday}). \textbf{Thus, we obtain the wave equations, showing that electric and magnetic field can propagate as a wave.}
+\begin{align}
+	\mu_{0} \epsilon_{0} \; \frac{\partial^{2} \mathbf{E}}{\partial t^{2}} \; - \; \nabla^{2} \mathbf{E} \; &= \; -\frac{1}{\epsilon_{0}} \nabla \rho \; - \; \mu_{0} \frac{\partial \mathbf{J}}{\partial t} \label{eqn:wave_e}\\
+	\mu_{0} \epsilon_{0} \; \frac{\partial^{2} \mathbf{B}}{\partial t^{2}} \; - \; \nabla^{2} \mathbf{B} \; &= \; \mu_{0} \; \nabla \times \mathbf{J} \label{eqn:wave_m}
+\end{align}
+Recall that wave equation (e.g. a vibrating string with displacement $s$ and wave speed $v$) without source term is in the form of
+\begin{align}
+	\nabla^{2} s \; = \; \frac{1}{v^{2}} \frac{\partial^{2} s}{\partial t^{2}}
+\end{align}
+Therefore, we conclude that the speed of electromagnetic wave in vacuum is
+\begin{align}
+	c \; = \; \frac{1}{\sqrt{\mu_{0} \epsilon_{0}}} \; \approx \; 3 \times 10^{8} \, \mathrm{m s}^{-1} \quad (\mathrm{\textbf{the \, speed \, of \, light}})
+\end{align}
+Optical phenomena, such as reflection, refraction, can be derived by solving the wave equations Eq. (\ref{eqn:wave_e}) and (\ref{eqn:wave_m}) with boundary conditions determined by Maxwell's equations.
+
+
+\clearpage
+
+
+\section{Charge Conservation}
+Consider the Ampere's Law with Maxwell's Correction, Eq. (\ref{eqn:ampere}).
+\begin{align}
+	\nabla \times \mathbf{B} \; &= \; \mu_{0} \mathbf{J} \; + \; \mu_{0} \epsilon_{0} \frac{\partial \mathbf{E}}{\partial t}
+\end{align}
+Taking divergence of both sides and note that $\nabla \cdot \nabla \times (\cdots) = 0$, we have
+\begin{align}
+	0 \; = \; \nabla \cdot \mathbf{J} \; + \; \epsilon_{0} \frac{\partial (\nabla \cdot \mathbf{E})}{\partial t}
+\end{align}
+Together with Gauss's Law of electricity, Eq. (\ref{eqn:gaus_e}), we obtain the conservation of charge
+\begin{align}
+	\frac{\partial \rho}{\partial t} \; + \; \nabla \cdot \mathbf{J} \; &= \; 0 \\
+	\implies \frac{dQ}{dt} \; + \; \oint_{\mathrm{S}} \mathbf{J} \cdot d\mathbf{a} \; &= \; 0
+		\qquad \mathrm{(divergence \; theorem)} 
+\end{align}
+
+
+
+\section{Energy Conservation}
+
+Consider the Lorentz force density acting on a charge distribution
+\begin{align}
+	\mathbf{f} \; = \; \rho \mathbf{E} + \mathbf{J} \times \mathbf{B} 
+\end{align}
+The rate of work done (i.e. power) by the force is
+\begin{align}
+	\mathbf{f} \cdot \mathbf{v} \; &= \; \rho \mathbf{E} \cdot \mathbf{v} 
+	\; + \;
+	 (\mathbf{J} \times \mathbf{B}) \cdot \mathbf{v} \\
+	 \; &= \; \rho \mathbf{v} \cdot \mathbf{E} \qquad  (\because \mathbf{J} =\rho \mathbf{v}) \\
+	 \; &= \; \mathbf{J} \cdot \mathbf{E}
+\end{align}
+Now, we want to establish the relation to $E$-field and $B$-field. By Eq. (\ref{eqn:ampere}), we have
+\begin{align}
+	\mathbf{J} \cdot \mathbf{E}
+	\; &= \;
+	\frac{1}{\mu_{0}} \Big[ \nabla \times \mathbf{B} \; - \; \frac{1}{c^{2}} \frac{\partial \mathbf{E}}{\partial t} \Big] \cdot \mathbf{E}
+\end{align}
+Using the vector calculus identity: $\nabla \cdot (\mathbf{a} \times \mathbf{b}) = \mathbf{b} \cdot (\nabla \times \mathbf{a}) - \mathbf{a} \cdot (\nabla \times \mathbf{b})$, we have
+\begin{align}
+	\mathbf{J} \cdot \mathbf{E}
+	\; &= \;
+	- \epsilon_{0} \mathbf{E} \cdot \frac{\partial \mathbf{E}}{\partial t} 
+	\; + \;
+	\frac{1}{\mu_{0}} \Big[ 
+	-\nabla \cdot ( \mathbf{E} \times \mathbf{B})
+	\; + \;
+	\mathbf{B} \cdot (\nabla \times \mathbf{E})  \Big]\\
+	\; &= \;
+	- \epsilon_{0} \mathbf{E} \cdot \frac{\partial \mathbf{E}}{\partial t} 
+	\; + \;
+	\frac{1}{\mu_{0}} \Big[ 
+	-\nabla \cdot ( \mathbf{E} \times \mathbf{B})
+	\; - \;
+	\mathbf{B} \cdot \frac{\partial \mathbf{B}}{\partial t}  \Big] \qquad \mathrm{By \; Eq. \;} (\ref{eqn:faraday})\\
+	\; &= \;
+	- \frac{\partial}{\partial t}
+	\underbrace{
+		\Bigg( \frac{1}{2} \epsilon_{0} E^{2}
+		\; + \;
+		\frac{1}{2 \mu_{0}} B^{2} \Bigg)
+	}_{u}
+	\; - \; 
+	\nabla \cdot 
+	\underbrace{
+		\Bigg( \frac{\mathbf{E} \times \mathbf{B}}{\mu_{0}} \Bigg)
+	}_{\mathbf{S}} \label{eqn:tmp_fv}
+\end{align}
+$u$ is the electromagnetic field energy density. $\mathbf{S}$ is the Poynting vector, which is the enery flux transferred in the direction of $\mathbf{E} \times \mathbf{B}$.\\
+
+Finally, we obtain the conservation of energy.
+\begin{align}
+	\frac{\partial u}{\partial t} \; &= \; - \mathbf{J} \cdot \mathbf{E} - \nabla \cdot \mathbf{S} \\
+	\implies \frac{\partial U}{\partial t} \; &= \; - \int_{\mathcal{V}}  \mathbf{J} \cdot \mathbf{E} \; d\tau \; - \; \oint_{\mathcal{S}} \mathbf{S} \cdot \mathbf{da}
+	\qquad \mathrm{(divergence \; theorem)} 
+\end{align}
+
+
+
+
+
+
+
+
+
+\clearpage
+
+\section{Momentum Conservation}
+Consider the Lorentz Force Law
+\begin{align}
+	\mathbf{f} \; = \; \rho \mathbf{E} + \mathbf{J} \times \mathbf{B}
+\end{align}
+Making use of Maxwell's Equations Eq. (\ref{eqn:gaus_e}) and (\ref{eqn:ampere}), we replace $\rho$ and $\mathbf{J}$ obtain
+\begin{align}
+	\mathbf{f} \; = \; \epsilon_{0} \, ( \nabla \cdot \mathbf{E} ) \, \mathbf{E} 
+	\; + \; \Big( \frac{1}{\mu_{0}} \nabla \times \mathbf{B} - \epsilon_{0} \frac{\partial \mathbf{E}}{\partial t} \Big) \times \mathbf{B} \label{eqn:tmp_force}
+\end{align}
+To introduce Poynting vector $\mathbf{S} = (\mathbf{E} \times \mathbf{B})/\mu_{0}$ in the last term, consider
+\begin{align}
+		\frac{\partial \mathbf{S}}{\partial t} 
+		\; = \; 
+		\frac{1}{\mu_{0}} \; \frac{\partial}{\partial t} \Big( \mathbf{E} \times \mathbf{B} \Big)
+		\; = \; 
+		\frac{1}{\mu_{0}} \Bigg( \frac{\partial \mathbf{E}}{\partial t} \times \mathbf{B}
+		\; - \; 
+		\mathbf{E} \times \big( \nabla \times \mathbf{E} \big) \Bigg) \qquad \mathrm{By. \; Eq.} \; (\ref{eqn:faraday})
+\end{align}
+Hence, Eq. (\ref{eqn:tmp_force}) becomes
+\begin{align}
+	\mathbf{f} \; = \; \epsilon_{0} \Big[ ( \nabla \cdot \mathbf{E} ) \mathbf{E}
+	\; - \; \mathbf{E} \times \big(\nabla \times \mathbf{E} \big) \Big]
+	\; - \;  \frac{1}{\mu_{0}} \mathbf{B}  \times  \big( \nabla \times \mathbf{B} \big)
+	\; - \;	 \mu_{0} \epsilon_{0} \frac{\partial \mathbf{S}}{\partial t} \label{eqn:tmp_force2}
+\end{align}
+Making use of the identity, $\nabla (\mathbf{v} \cdot \mathbf{v}) \; = \; 2 \big[ \mathbf{v} \times (\nabla \times \mathbf{v}) + (\mathbf{v} \cdot \nabla) \mathbf{v} ]$, we simplify Eq.  (\ref{eqn:tmp_force2}) as
+\begin{align}
+	\mathbf{f} \; = \; \underbrace{
+		-\nabla \Bigg( \frac{1}{2} \epsilon_{0} E^{2} \; + \; \frac{1}{2\mu_{0}} B^{2} \Bigg)
+		\; + \; 
+		\epsilon_{0} \Big[ (\nabla \cdot \mathbf{E}) \mathbf{E} \; + \; (\mathbf{E} \cdot \nabla) \mathbf{E} \Big]
+		\; + \; \frac{1}{\mu_{0}} (\mathbf{B} \cdot \nabla) \mathbf{B} 
+	}_{\nabla \cdot \mathbb{T}}
+	\; - \;  \frac{1}{c^{2}}\frac{\partial \mathbf{S}}{\partial t} \label{eqn:tmp_force3}
+\end{align}
+where $\mathbb{T}$ is the \textbf{Maxwell stress tensor} given by
+\begin{align}
+	\mathbb{T} \; = \;  \Bigg( \epsilon_{0} \mathbf{E} \otimes \mathbf{E} \; + \; \frac{1}{\mu_{0}} \mathbf{B} \otimes \mathbf{B} \Bigg) 
+	\; - \; 
+	\Bigg( \frac{1}{2} \epsilon_{0} E^{2}  \; + \; 
+	\frac{1}{2 \mu_{0}} B^{2} \Bigg) \mathbb{I}
+\end{align}
+
+Finally, we obtain the conservation of momentum.
+\begin{align}
+	&\mathbf{f} \; = \; 
+	\nabla \cdot \mathbb{T} \; - \; 
+	\frac{1}{c^{2}} \frac{\partial \mathbf{S}}{\partial t} \label{eqn:em_force_local} \\
+	\implies &\mathbf{F} \; = \; 
+	\oint_{\mathcal{S}} \mathbb{T} \cdot d\mathbf{a} 
+	\; - \;
+	\frac{d}{dt} \; \underbrace{\frac{1}{c^{2}} \int_{\mathcal{V}} \mathbf{S} \; d\tau}_{\mathbf{p}_{\mathrm{em}}} \qquad \mathrm{(divergence \; theorem)} \\
+	\implies &\frac{d}{dt} \Big( \mathbf{p}_{\mathrm{mech}} \; + \; \mathbf{p}_{\mathrm{em}} \Big)
+	 \; = \; 
+	 \oint_{\mathcal{S}} \mathbb{T} \cdot d\mathbf{a}
+\end{align}
+
+
+
+
+
+
+
+
+
+
+\clearpage
+
+
+
+
+
+
+
+
+
+
+
+\section{Potential}
+Since $\nabla \cdot \mathbf{B} = 0$ from Eq. (\ref{eqn:gaus_m}), and mathematically $\nabla \cdot (\nabla \times \mathbf{v} ) = 0$, we define a \textbf{vector potential} $\mathbf{A}$ such that
+\begin{align}
+	\mathbf{B} \; = \; \nabla \times \mathbf{A} \label{eqn:potential_A}
+\end{align}
+Now, we make use of Eq. (\ref{eqn:faraday}) and Eq. (\ref{eqn:potential_A}) 
+\begin{align}
+	\nabla \times \mathbf{E} \; = \; - \frac{\partial \mathbf{B}}{\partial t}
+	\; = \; \nabla \times \Big( -\frac{\partial \mathbf{\mathbf{A}}}{\partial t} \Big) 
+	\quad \implies \quad 
+	\nabla \times \Big( \mathbf{E} + \frac{\partial \mathbf{\mathbf{A}}}{\partial t} \Big) \; = \; \mathbf{0}
+\end{align}
+Mathematically, $\nabla \times (\nabla v) = 0$. Therefore, we can define a \textbf{(scalar) potential} $\phi$ such that
+\begin{align}
+	\mathbf{E} \; = \; - \nabla \phi - \frac{\partial \mathbf{A}}{\partial t} \label{eqn:potential_phi}
+\end{align}
+Note that the potentials $\mathbf{A}$ and $\phi$ are not unique and they admit the \textbf{gauge transformation}:
+\begin{align}
+	\mathbf{A} \; \to \; \mathbf{A} + \nabla f \qquad \mathrm{and} \qquad
+	\phi \; \to \; \phi - \frac{\partial f}{\partial t}
+\end{align}
+such that $\mathbf{E}$ \textbf{and} $\mathbf{B}$ \textbf{remain  unchanged.}\\
+
+Using Eq. (\ref{eqn:gaus_e}), Gauss's Law for electricity, and Eq. (\ref{eqn:potential_phi}) we have
+\begin{align}
+	\nabla^{2} \phi \; + \; \frac{\partial}{\partial t} (\nabla \cdot \mathbf{A}) \; = \; -\frac{\rho}{\epsilon_{0}} \label{eqn:gaus_e_potential}
+\end{align}
+
+Using Eq. (\ref{eqn:ampere}), Ampere's Law with Maxwell's equation, and Eq. (\ref{eqn:potential_A}) and Eq. (\ref{eqn:potential_phi}), we have
+\begin{align}
+	\nabla^{2} \mathbf{A} \; - \; \frac{1}{c^{2}} \frac{\partial^{2} \mathbf{A}}{\partial t^{2}} 
+	\; - \; 
+	\nabla \Bigg(\nabla \cdot \mathbf{A} + \frac{1}{c^{2}} \frac{\partial \phi}{\partial t} \Bigg) 
+	\; = \;
+	- \mu_{0} \mathbf{J} \label{eqn:ampere_potential}
+\end{align}
+
+If we choose \textbf{Coulomb's Gauge}, 
+\begin{align}
+	\nabla \cdot \mathbf{A} \; = \; 0
+\end{align}
+Eq. (\ref{eqn:gaus_e_potential}) reduces to Poisson's equation
+\begin{align}
+	\nabla^{2} \phi \; = \; -\frac{\rho}{\epsilon_{0}} 
+	\quad  \implies \quad
+	\phi(\mathbf{r}, t) \; = \;
+	\frac{1}{4 \pi \epsilon_{0}}\int \frac{\rho(\mathbf{r^{\prime}}, t)}{|\mathbf{r} - \mathbf{r^{\prime}}|} \; d \mathbf{r^{\prime}}
+\end{align}
+However, $\phi$ alone cannot determine $\mathbf{E}$, we also need to find $\mathbf{A}$ by solving Eq. (\ref{eqn:ampere_potential}).
+ 
+If we choose \textbf{Lorenz's Gauge},
+\begin{align}
+	\nabla \cdot \mathbf{A} \; = \; -\frac{1}{c^{2}} \frac{\partial \phi}{\partial t}
+\end{align}
+then $\phi$ and $\mathbf{A}$ are decoupled.
+\begin{align}
+	-\frac{1}{c^{2}} \frac{\partial^{2} \phi}{\partial t^{2}} \; + \; \nabla^{2} \phi \; = \; \frac{\rho}{\epsilon_{0}}
+	\quad &\implies \quad
+	\phi(\mathbf{r}, t) \; = \; 
+	\frac{1}{4 \pi \epsilon_{0}} 
+	\int \frac{\rho (\mathbf{r^{\prime}},
+		t_{r})}{|{\mathbf{r} - \mathbf{r^{\prime}}|}} \, d \tau^{\prime}
+	 \\
+	-\frac{1}{c^{2}} \frac{\partial^{2} \mathbf{A}}{\partial t^{2}} \; + \; \nabla^{2} \mathbf{A} \; = \; - \mu_{0} \mathbf{J}
+	\quad &\implies \quad 
+	\mathbf{A}(\mathbf{r}, t) \; = \; 
+	\frac{\mu_{0}}{4 \pi} 
+	\int \frac{\mathbf{J} (\mathbf{r^{\prime}}, t_{r})}{|{\mathbf{r} - \mathbf{r^{\prime}}|}} \, d \tau^{\prime}
+\end{align}
+where $t_{r} = t - | \mathbf{r} - \mathbf{r^{\prime}}| / c $ is the retarded time.
+
+
+\end{document}
